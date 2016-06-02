@@ -1,4 +1,5 @@
 import heapq
+from collections import deque
 
 
 # If there is a mismatch in the number of elements, you get an error.
@@ -56,4 +57,49 @@ name, email, *phone_numbers = record
 *trailling, current = [10, 8, 7, 1, 9, 5, 10, 3]
 print(trailling)
 print(current)
+
+
+# Extended iterable unpacking is tailor-made for unpacking iterables of unknown or arbitrary length
+
+records = [
+    ('foo', 1, 2),
+    ('bar', 'hello'),
+    ('foo', 3, 4),
+]
+
+
+def do_foo(x, y):
+    print('foo', x, y)
+
+
+def do_bar(s):
+    print('bar', s)
+
+for tag, *args in records:
+    if tag == 'foo':
+        do_foo(*args)
+    elif tag == 'bar':
+        do_bar(*args)
+
+
+# Keeping the Last N Items
+
+
+def search(lines, pattern, history=5):
+    previous_lines = deque(maxlen=history)
+    for line in lines:
+        if pattern in line:
+            yield line, previous_lines
+        previous_lines.append(line)
+
+# Example use on a file
+if __name__ == '__main__':
+    with open('somefile.txt') as f:
+        for line, prevlines in search(f, 'python', 5):
+            for pline in prevlines:
+                print(pline, end='')
+            print(line, end='')
+            print('-'*20)
+
+
 
