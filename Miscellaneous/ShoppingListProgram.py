@@ -1,3 +1,5 @@
+
+
 current_item = " "
 item = []
 
@@ -8,5 +10,12 @@ while current_item != "":
         item.append(current_item)
 
 print(item)
+
+
+
+
+
+
+
 
 
